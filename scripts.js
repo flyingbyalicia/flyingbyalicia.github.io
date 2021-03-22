@@ -20,23 +20,26 @@ var time4;
 var time5;
 var time6;
 var time7;
+const hb_song = document.getElementById("a_hb");
+var startSong;
+var fadeInt;
 
-// SEPARATE FUNCTIONS 
+// SEPARATE FUNCTIONS
 function jump() {
   if (pg.classList != "jump") {
     pg.classList.add("jump");
     document.getElementById("a_jump").play();
-    
+
     time6 = setTimeout(function () {
       pg.classList.remove("jump");
-    }, 700)
+    }, 600)
   }
-}  
+}
 
 function jump2() {
   pg.classList.replace("upper","jump2");
   document.getElementById("a_jump2").play();
-    
+
   time7 = setTimeout(function () {
     pg.classList.remove("jump2");
   }, 700)
@@ -48,13 +51,13 @@ function gotBbt() {
     document.getElementById("a_pt").play();
     spark.style.top = "-470px";
     spark.style.display = "flex";
-    
+
     setTimeout(function () {
       spark.style.display = "none";
     }, 500)
-    
+
     bbt.classList.add("point");
-    
+
     setTimeout(function() {
       bbt.classList.remove("point")
     },500)
@@ -67,13 +70,13 @@ function gotBbt2() {
     document.getElementById("a_pt2").play();
     spark.style.top = "-570px";
     spark.style.display = "flex";
-    
+
     setTimeout(function () {
       spark.style.display = "none";
     }, 500)
-    
+
     bbt2.classList.add("point");
-    
+
     setTimeout(function() {
       bbt2.classList.remove("point")
     },500)
@@ -89,7 +92,7 @@ function platform(rng1) {
     } else if (rng1 % 3 === 0) {
       runBbt2();
     }
-    
+
     time1 = setTimeout(function () {
       ice.classList.remove("run_platform")
     }, 2900)
@@ -124,7 +127,7 @@ function runBee() {
   if (!bee.classList.contains("run_bee") && !play.classList.contains("freeze")) {
     if (count < 20) {
       var secs = (Math.random()*1)+1.5
-    } 
+    }
     if (count >= 20 && count < 50) {
       var secs = (Math.random()*1)+1
     }
@@ -148,7 +151,7 @@ function runBee2() {
   if (!bee2.classList.contains("run_bee2") && !play.classList.contains("freeze")) {
     if (count < 20) {
       var secs = (Math.random()*1)+2.5
-    } 
+    }
     if (count >= 20 && count < 50) {
       var secs = (Math.random()*1)+2
     }
@@ -167,15 +170,15 @@ function runBee2() {
 const bgm = document.getElementById("bgm");
 
 function startGame(mode) {
-  if (menu.style.display = "block") {
+  // if (menu.style.display = "block") {
     if (bgm.classList.contains("on")) {
       bgm.volume = 0.5;
       bgm.currentTime=0;
       bgm.play();
     }
     menu.style.display = "none"
-    play.style.display = "block"  
-    count=0;
+    play.style.display = "block"
+    count=25;
     score.innerHTML = count;
     pg.classList.remove("jump","jump2")
     bbt.classList.remove("run_bbt");
@@ -187,11 +190,11 @@ function startGame(mode) {
     go_msg.style.display = "none"
     go_btns.style.display = "none"
     play.classList.remove("freeze")
-    clearInterval(fadeInt);
-    clearTimeout(startSong);
+    // clearInterval(fadeInt);
+    // clearTimeout(startSong);
     hb_song.classList.remove("on");
 
-    
+
     if (mode == "special") {
       play.classList.add("special");
       instructions()
@@ -200,7 +203,6 @@ function startGame(mode) {
       instructions()
     }
   }
-}
 
 function instructions() {
   inst.classList.add("inst_in")
@@ -230,15 +232,13 @@ function goToMenu() {
   go_btns.style.display = "none"
   bgm.pause();
   hb_song.pause();
-  clearTimeout(startSong);
+  // clearTimeout(startSong);
   hb_song.classList.remove("on");
-  clearInterval(fadeInt);
-
 
   if (play.style.display = "block") {
     play.style.display = "none"
-    menu.style.display = "block" 
-    
+    menu.style.display = "block"
+
     if (play.classList.contains("special")) {
       play.classList.remove("special");
       hbd.classList.remove("run_hbd");
@@ -267,7 +267,7 @@ function gameOver() {
     clearTimeout(time7)
     go_msg.style.display = "flex"
     go_btns.style.display = "flex"
-    //  hbd.classList.remove("run_hbd") 
+    //  hbd.classList.remove("run_hbd")
   }
 }
 
@@ -283,7 +283,7 @@ let gotPoint = setInterval(function () {
     window.getComputedStyle(bbt2).getPropertyValue("left")
   );
 
-  if (bbtLeft < 40  && bbtLeft > 0 && pgHead >= 90 && !bbt.classList.contains("point")) {  
+  if (bbtLeft < 40  && bbtLeft > 0 && pgHead >= 90 && !bbt.classList.contains("point")) {
     gotBbt();
 
     if (count == 28 && play.classList.contains("special")) {
@@ -320,7 +320,7 @@ let isElevated = setInterval(function () {
   if (pgFeet === -32 && (iceLeft > 130 || iceLeft < -500)) {
     if (pg.classList == "upper") {
       pg.classList.replace("upper","descend");
-   
+
       time5 = setTimeout(function () {
         pg.classList.remove("descend");
       }, 200)
@@ -360,7 +360,7 @@ let runItems = setInterval(function () {
   }
 }, 500)
 
-// REMOVE CLASS FOR BBT 
+// REMOVE CLASS FOR BBT
 let removeBbt = setInterval(function() {
     var bbtLeft = parseInt(
       window.getComputedStyle(bbt).getPropertyValue("left"));
@@ -374,7 +374,7 @@ let runMsg = setInterval(function () {
   if (count >= 28 && play.classList.contains("special")) {
     hbd.classList.add("run_hbd");
     menu_btn.classList.add("return_button")
-
+    //clearInterval(isDead);
   }
 },100);
 
@@ -418,33 +418,35 @@ btn2.addEventListener('mouseover', function() {
   document.getElementById("a_hover").play();
 });
 
-const hb_song = document.getElementById("a_hb");
-var startSong;
-var fadeInt;
 
 let isMusic = setInterval(function() {
   if (count >= 28 && play.classList.contains("special")) {
     if (!hb_song.classList.contains("on")) {
+      hb_song.currentTime = 0;
       startSong = setTimeout(function() {
         hb_song.classList.add("on");
         hb_song.play();
-      }, 3200)
+      }, 2200)
 
-      if (bgm.classList.contains("on")) {
+      if (bgm.classList.contains("on") && hbd.classList.contains("run_hbd")) {
         fadeMusic();
-      } 
+      }
+    } else {
+      clearTimeout(startSong)
     }
   }
 }, 1000);
 
 function fadeMusic() {
-  fadeInt = setInterval(function() {
-  if ((0.1 - bgm.volume) > 0) {
-    bgm.volume = 0;
-  } else {
-      bgm.volume -= 0.1
-    }
-  }, 700)
+  var fadeInt = setInterval(function() {
+    if ((0.1 - bgm.volume) > 0) {
+      bgm.volume = 0;
+      clearInterval(fadeInt)
+    } else {
+        bgm.volume -= 0.1
+        console.log(bgm.volume)
+      }
+    }, 700)
 }
 
 
@@ -458,8 +460,8 @@ function toggleMusic(option) {
     document.getElementById('music_off').style.display = "flex"
     document.getElementById('music_on').style.display = "none"
     console.log("music on")
-    
-  } 
+
+  }
   if (option === 'off') {
     bgm.pause();
     bgm.classList.replace("on","off");
@@ -476,7 +478,7 @@ document.addEventListener("keydown", function (e) {
 
   if (e.key === " ") {
     e.preventDefault();
-    
+
     if (pgFeet === -135) {
       jump();
     }
@@ -491,7 +493,7 @@ document.addEventListener("keydown", function (e) {
     goToMenu();
     bgm.pause();
     hb_song.pause();
-    
+
   }
 });
 
