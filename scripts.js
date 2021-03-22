@@ -25,15 +25,17 @@ var time7;
 function jump() {
   if (pg.classList != "jump") {
     pg.classList.add("jump");
+    document.getElementById("a_jump").play();
     
     time6 = setTimeout(function () {
       pg.classList.remove("jump");
-    }, 600)
+    }, 700)
   }
 }  
 
 function jump2() {
   pg.classList.replace("upper","jump2");
+  document.getElementById("a_jump2").play();
     
   time7 = setTimeout(function () {
     pg.classList.remove("jump2");
@@ -43,13 +45,13 @@ function jump2() {
 function gotBbt() {
   if (!play.classList.contains("freeze")) {
     bbt.style.visibility = "hidden";
-    spark.style.top = "-100px";
+    document.getElementById("a_pt").play();
+    spark.style.top = "-470px";
     spark.style.display = "flex";
     
     setTimeout(function () {
       spark.style.display = "none";
-      bbt.style.visibility = "visible";
-    }, 400)
+    }, 500)
     
     bbt.classList.add("point");
     
@@ -62,13 +64,13 @@ function gotBbt() {
 function gotBbt2() {
   if (!play.classList.contains("freeze")) {
     bbt2.style.visibility = "hidden";
-    spark.style.top = "-200px";
+    document.getElementById("a_pt2").play();
+    spark.style.top = "-570px";
     spark.style.display = "flex";
     
     setTimeout(function () {
       spark.style.display = "none";
-      bbt2.style.visibility = "visible";
-    }, 600)
+    }, 500)
     
     bbt2.classList.add("point");
     
@@ -95,15 +97,17 @@ function platform(rng1) {
 }
 
 function runBbt() {
-  if (bbt.classList != "run_bbt" && !play.classList.contains("freeze")) {
+  if (!bbt.classList.contains("run_bbt") && !play.classList.contains("freeze")) {
     var secs = (Math.random()*2)+2
+    bbt.style.visibility = "visible";
     bbt.classList.add("run_bbt");
     bbt.style.animationDuration = secs+'s'
   }
 }
 
 function runBbt2() {
-  if (bbt2.classList != "run_bbt2" && !play.classList.contains("freeze")) {
+  if (!bbt2.classList.contains("run_bbt2") && !play.classList.contains("freeze")) {
+    bbt2.style.visibility = "visible";
     bbt2.classList.add("run_bbt2");
 
     time2 = setTimeout(function () {
@@ -113,11 +117,11 @@ function runBbt2() {
 }
 
 function runBee() {
-  if (play.classList.contains("special") && count == 28) {
+  if (play.classList.contains("special") && count >= 28) {
     return;
   }
 
-  if (bee.classList != "run_bee" && !play.classList.contains("freeze")) {
+  if (!bee.classList.contains("run_bee") && !play.classList.contains("freeze")) {
     if (count < 20) {
       var secs = (Math.random()*1)+2
     } 
@@ -137,11 +141,11 @@ function runBee() {
 }
 
 function runBee2() {
-  if (play.classList.contains("special") && count == 28) {
+  if (play.classList.contains("special") && count >= 28) {
     return;
   }
 
-  if (bee2.classList != "run_bee2" && !play.classList.contains("freeze")) {
+  if (!bee2.classList.contains("run_bee2") && !play.classList.contains("freeze")) {
     if (count < 20) {
       var secs = (Math.random()*1)+2.5
     } 
@@ -160,8 +164,15 @@ function runBee2() {
   }
 }
 
+const bgm = document.getElementById("bgm");
+
 function startGame(mode) {
   if (menu.style.display = "block") {
+    if (bgm.classList.contains("on")) {
+      bgm.volume = 0.5;
+      bgm.currentTime=0;
+      bgm.play();
+    }
     menu.style.display = "none"
     play.style.display = "block"  
     count=0;
@@ -171,6 +182,7 @@ function startGame(mode) {
     bbt2.classList.remove("run_bbt2");
     bee.classList.remove("run_bee");
     bee2.classList.remove("run_bee2");
+    hbd.classList.remove("run_hbd");
     ice.classList.remove("run_platform");
     go_msg.style.display = "none"
     go_btns.style.display = "none"
@@ -208,9 +220,16 @@ function goToMenu() {
   bbt2.classList.remove("run_bbt2");
   bee.classList.remove("run_bee");
   bee2.classList.remove("run_bee2");
+  hbd.classList.remove("run_hbd");
   ice.classList.remove("run_platform");
   go_msg.style.display = "none"
   go_btns.style.display = "none"
+  bgm.pause();
+  hb_song.pause();
+  clearTimeout(startSong);
+  hb_song.classList.remove("on");
+  clearInterval(fadeInt);
+
 
   if (play.style.display = "block") {
     play.style.display = "none"
@@ -227,17 +246,25 @@ function goToMenu() {
 }
 
 function gameOver() {
-  play.classList.add("freeze")
-  clearTimeout(time1)
-  clearTimeout(time2)
-  clearTimeout(time3)
-  clearTimeout(time4)
-  clearTimeout(time5)
-  clearTimeout(time6)
-  clearTimeout(time7)
-  go_msg.style.display = "flex"
-  go_btns.style.display = "flex"
-
+  if (count >= 28 && play.classList.contains("special")) {
+    return;
+  } else {
+    if (!play.classList.contains("freeze")) {
+      document.getElementById("a_dead").play();
+      document.getElementById("bgm").pause();
+    }
+    play.classList.add("freeze")
+    clearTimeout(time1)
+    clearTimeout(time2)
+    clearTimeout(time3)
+    clearTimeout(time4)
+    clearTimeout(time5)
+    clearTimeout(time6)
+    clearTimeout(time7)
+    go_msg.style.display = "flex"
+    go_btns.style.display = "flex"
+    //  hbd.classList.remove("run_hbd") 
+  }
 }
 
 // DETERMINES COLLISION & ADDS POINTS
@@ -268,7 +295,7 @@ let gotPoint = setInterval(function () {
     count+=1;
     score.innerHTML = count;
   }
-}, 50);
+}, 20);
 
 // IF PENGUIN SHOULD BE ON PLATFORM OR NOT
 let isElevated = setInterval(function () {
@@ -329,7 +356,7 @@ let runItems = setInterval(function () {
 let removeBbt = setInterval(function() {
     var bbtLeft = parseInt(
       window.getComputedStyle(bbt).getPropertyValue("left"));
-     // console.log(bbtLeft)
+
     if ((bbtLeft < -25 || bbtLeft > 650) && bbt.classList.contains("run_bbt")) {
       bbt.classList.remove("run_bbt")
     }
@@ -361,7 +388,79 @@ let isDead = setInterval(function() {
   if (pgHead <=40 && pgHead > -40 && beeLeft2 < 25 && beeLeft2 > -50) {
     gameOver();
   }
-}, 5)
+}, 50)
+
+
+//SOUND EFFECTS
+var specBtn = document.getElementById("special");
+var endlessBtn = document.getElementById("endless");
+var btn1 = document.getElementById("go_btn");
+var btn2 = document.getElementById("go_btn2");
+
+specBtn.addEventListener('mouseover', function() {
+  document.getElementById("a_hover").play();
+})
+endlessBtn.addEventListener('mouseover', function() {
+  document.getElementById("a_hover").play();
+})
+btn1.addEventListener('mouseover', function() {
+  document.getElementById("a_hover").play();
+});
+btn2.addEventListener('mouseover', function() {
+  document.getElementById("a_hover").play();
+});
+
+const hb_song = document.getElementById("a_hb");
+var startSong;
+var fadeInt;
+
+let isMusic = setInterval(function() {
+  if (count === 28 && play.classList.contains("special")) {
+    if (!hb_song.classList.contains("on")) {
+      startSong = setTimeout(function() {
+        hb_song.classList.add("on");
+        hb_song.play();
+      }, 3200)
+
+      if (bgm.classList.contains("on")) {
+        fadeMusic();
+      } 
+    }
+  }
+}, 1000);
+
+function fadeMusic() {
+  fadeInt = setInterval(function() {
+  if ((0.1 - bgm.volume) > 0) {
+    bgm.volume = 0;
+  } else {
+      bgm.volume -= 0.1
+    }
+  }, 700)
+  bgm.classList.replace("on","off")
+}
+
+
+function toggleMusic(option) {
+  if (option === 'on') {
+    bgm.currentTime = 0
+    if (play.style.display == 'block') {
+      bgm.play()
+    }
+    bgm.classList.replace("off","on");
+    document.getElementById('music_off').style.display = "flex"
+    document.getElementById('music_on').style.display = "none"
+    console.log("music on")
+    
+  } 
+  if (option === 'off') {
+    bgm.pause();
+    bgm.classList.replace("on","off");
+    document.getElementById('music_off').style.display = "none"
+    document.getElementById('music_on').style.display = "flex"
+    console.log("music off")
+  }
+}
 
 document.addEventListener("keydown", function (e) {
   var pgFeet = parseInt(
@@ -383,5 +482,9 @@ document.addEventListener("keydown", function (e) {
   if (e.key === "Escape") {
     e.preventDefault();
     goToMenu();
+    bgm.pause();
+    hb_song.pause();
+    
   }
 });
+

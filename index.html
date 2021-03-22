@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ÒvÓ</title>
 
+  <link rel="shortcut icon" href="img/favicon.ico"/>
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
@@ -15,7 +16,7 @@
   <div id="menu" class="game">
     <h3>Select Mode</h3>
     <div style="display: flex; align-items: center; margin: 0px 200px">
-      <button id="start" onclick="startGame('special')">Special</button>
+      <button id="special" onclick="startGame('special')">Special</button>
       <button id="endless" onclick="startGame('endless')">Endless</button>
     </div>
   </div>
@@ -28,18 +29,60 @@
     <div id="bbt2" ></div>
     <div id="bee"></div>
     <div id="bee2"></div>
+    <h3 id="inst">collect the bbt & avoid the bees<br>press space to jump</h3>
+    <div id="cloud1"></div>
+    <div id="cloud2"></div>
+    <div id="cloud3"></div>
+    <div id="cloud4"></div>
     <div id="hbd"></div>
     <div style="align-items:center">
       <button id="return" onclick="goToMenu()">Menu</button>
     </div>    
-    <h3 id="inst">collect the bbt & avoid the bees<br>press space to jump</h3>
+    <div id="spark" style="display: none"></div>
     <h3 id=go_msg>lmao you died</h3>
     <div id=go_btns style="align-items:center; display:none; margin: 0px 200px">
-      <button class="go_btn" onclick="startGame()">Again</button>
-      <button class="go_btn" onclick="goToMenu()">Menu</button>
+      <button id="go_btn" class="go_btn" onclick="startGame()">Again</button>
+      <button id="go_btn2" class="go_btn" onclick="goToMenu()">Menu</button>
     </div>
   </div>
-  <div id="spark" style="display: none"></div>
+  <div style="align-items:center;display:flex">
+    <button id="music_on" style="display:none" onclick="toggleMusic('on')">
+      turn music on
+    </button>
+    <button id="music_off" style="display:flex" onclick="toggleMusic('off')">
+      turn music off
+    </button>
+  </div>
+  <div>
+    <audio id="a_dead">
+      <source src="sfx/dead.wav"/>
+    </audio>
+    <audio id="a_tada">
+      <source src="sfx/tada copy.m4a"/>
+    </audio>
+    <audio id="a_jump">
+      <source src="sfx/mus_note1 copy.wav"/>
+    </audio>
+    <audio id="a_jump2">
+      <source src="sfx/mus_note3 copy.wav"/>
+    </audio>
+    <audio id="a_pt">
+      <source src="sfx/bbt.wav"/>
+    </audio>
+    <audio id="a_pt2">
+      <source src="sfx/bbt.wav"/>
+    </audio>
+    <audio id="a_hover">
+      <source src="sfx/hover.wav"/>
+    </audio>
+    <audio id="a_hb">
+      <source src="sfx/hb.mov"/>
+    </audio>
+    <audio id="bgm" class="on">
+      <source src="sfx/'Wonderful Life!' Fun Upbeat Game Music by HeatleyBros.mp3"/>
+    </audio>
+  </div>
+
   <script src="scripts.js"></script>
 </body>
 </html>

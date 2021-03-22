@@ -8,7 +8,7 @@ h1,h3 {
   text-align: center;
 }
 
-#start, #endless, #return, .go_btn {
+#special, #endless, #return, .go_btn {
   background-color: #1d1e1e;
   border: dashed 2px lightslategrey;
   border-radius: 5px 5px 5px 5px;
@@ -21,14 +21,36 @@ h1,h3 {
   transform: scale(1,0.9)
 }
 
+#special:hover, #endless:hover, #return:hover, .go_btn:hover, #music_control:hover {
+  background-color: lightsteelblue;
+  color: #1d1e1e;
+  border: dashed 2px #1d1e1e;
+  border-radius: 5px 5px 5px 5px;
+}
+
 #inst {
-  margin-top: -380px;
+  margin-top: -335px;
   opacity: 0.7;
+}
+
+#music_on, #music_off {
+  background-color: #1d1e1e;
+  border: dotted 3px lightslategrey;
+  border-radius: 5px 5px 5px 5px;
+  color: lightsteelblue;
+  font-family: Comic Sans MS, Comic Sans, cursive;
+  font-size: 12px;
+  padding: 6px 10px 8px;
+  display: block;
+  margin: auto;
+  margin-top: 2em;
+  transform: scale(1,0.9);
+  opacity: 0.3;
 }
 
 .return_button {
   animation: longFadeIn 14s;
-  top: -320px !important;
+  top: -475px !important;
   position: relative;   
   font-size: 12px !important;
 }
@@ -71,11 +93,6 @@ h1,h3 {
   }
 }
 
-#start:hover, #endless:hover, #return:hover, .go_btn:hover {
-  background-color: lightsteelblue;
-  color: #1d1e1e;
-  border: dashed 2px #1d1e1e;
-  border-radius: 5px 5px 5px 5px;}
 
 .game {
   padding-top: 20px;
@@ -343,7 +360,7 @@ h1,h3 {
   height: 50px;
   width: 50px;
   position: relative;
-  left: 100px;
+  left: 27px;
   background-image: url(img/spark2.gif);
   background-size: 50px;
 }
@@ -354,10 +371,11 @@ h1,h3 {
   height: 40px;
   width: 550px;
   position: relative;
-  top: -340px;
+  top: -495px;
   left: 50px;
+  opacity: 0.7;
 
-  animation: hbd 10s;
+  animation: hbd 13s;
 }
 
 @keyframes hbd {
@@ -374,7 +392,96 @@ h1,h3 {
 }
 
 #go_msg {
-  margin-top: -70px;
+  margin-top: -520px;
   text-align: center !important;
   margin-left: 260px;
 }
+
+#cloud1 {
+  background-image: url(img/cloud1.png);
+  background-size: 120px;
+  position: relative;
+  height: 120px;
+  width: 120px;
+  top: -110px;
+  opacity: 0.15;
+  left: 700px;
+
+  animation: cloud1 56s linear infinite;
+}
+
+@keyframes cloud1 {
+  0% {
+    left: 700px;
+  }
+  100% {
+    left: -500px
+  }
+}
+
+#cloud2 {
+  background-image: url(img/cloud2.png);
+  background-size: 140px;
+  position: relative;
+  height: 140px;
+  width: 140px;
+  top: -290px;
+  opacity: 0.15;
+  left: 700px;
+
+  animation: cloud2 80s linear infinite;
+}
+
+@keyframes cloud2 {
+  0% {
+    left: 750px
+  }
+  100% {
+    left: -200px;
+  }
+}
+
+#cloud3 {
+  background-image: url(img/cloud3.png);
+  background-size: 80px;
+  position: relative;
+  height: 80px;
+  width: 80px;
+  top: -300px;
+  opacity: 0.15;
+  left: 700px;
+
+  animation: cloud3 50s linear infinite;
+}
+
+@keyframes cloud3 {
+  0% {
+    left: 900px
+  }
+  100% {
+    left: -400px;
+  }
+}
+
+#cloud4 {
+  background-image: url(img/cloud2.png);
+  background-size: 80px;
+  position: relative;
+  height: 80px;
+  width: 80px;
+  top: -450px;
+  opacity: 0.15;
+  left: 700px;
+
+  animation: cloud4 30s linear infinite;
+}
+
+@keyframes cloud4 {
+  0% {
+    left: 700px
+  }
+  100% {
+    left: -400px;
+  }
+}
+
