@@ -292,8 +292,12 @@ let gotPoint = setInterval(function () {
 
   if (bbtLeft2 < 40 && bbtLeft2 > 0 && pgHead <= 50 && !bbt2.classList.contains("point")) {
     gotBbt2();
+    if (count == 28 && play.classList.contains("special")) {
+      return;
+    } else {
     count+=1;
     score.innerHTML = count;
+    }
   }
 }, 20);
 
