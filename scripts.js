@@ -437,7 +437,6 @@ function fadeMusic() {
       bgm.volume -= 0.1
     }
   }, 700)
-  bgm.classList.replace("on","off")
 }
 
 
