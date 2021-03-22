@@ -123,13 +123,13 @@ function runBee() {
 
   if (!bee.classList.contains("run_bee") && !play.classList.contains("freeze")) {
     if (count < 20) {
-      var secs = (Math.random()*1)+2
+      var secs = (Math.random()*1)+1.5
     } 
     if (count >= 20 && count < 50) {
-      var secs = (Math.random()*1)+1.5
+      var secs = (Math.random()*1)+1
     }
     if (count >= 50) {
-      var secs = (Math.random()*1)+1
+      var secs = (Math.random()*1)+0.8
     }
     bee.style.animationDuration = secs+'s'
     bee.classList.add("run_bee");
