@@ -187,6 +187,10 @@ function startGame(mode) {
     go_msg.style.display = "none"
     go_btns.style.display = "none"
     play.classList.remove("freeze")
+    clearInterval(fadeInt);
+    clearTimeout(startSong);
+    hb_song.classList.remove("on");
+
     
     if (mode == "special") {
       play.classList.add("special");
@@ -419,7 +423,7 @@ var startSong;
 var fadeInt;
 
 let isMusic = setInterval(function() {
-  if (count === 28 && play.classList.contains("special")) {
+  if (count >= 28 && play.classList.contains("special")) {
     if (!hb_song.classList.contains("on")) {
       startSong = setTimeout(function() {
         hb_song.classList.add("on");
