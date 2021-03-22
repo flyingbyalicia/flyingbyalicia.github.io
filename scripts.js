@@ -178,7 +178,7 @@ function startGame(mode) {
     }
     menu.style.display = "none"
     play.style.display = "block"
-    count=25;
+    count=0;
     score.innerHTML = count;
     pg.classList.remove("jump","jump2")
     bbt.classList.remove("run_bbt");
