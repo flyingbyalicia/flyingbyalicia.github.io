@@ -104,13 +104,20 @@ h1,h3 {
   overflow: hidden;
 }
 
-#score {
+#score, #high_score {
   color: lightgrey;
   font-family:'Courier New', Courier, monospace;
   text-align: right;
   margin-top: -15px;
   margin-bottom: -20px;
-  margin-right: 5px;
+  margin-right: 10px;
+}
+
+#high_score {
+  opacity: 0.3;
+  margin-right: 40px !important;
+  position: relative;
+  top: 2px;
 }
 
 .upper {
@@ -393,8 +400,7 @@ h1,h3 {
 
 #go_msg {
   margin-top: -520px;
-  text-align: center !important;
-  margin-left: 260px;
+  justify-content: center !important;
 }
 
 #cloud1 {

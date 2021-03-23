@@ -11,6 +11,9 @@ const menu_btn = document.getElementById("return");
 const go_msg = document.getElementById("go_msg")
 const go_btns = document.getElementById("go_btns");
 const inst = document.getElementById("inst");
+const high_score = document.getElementById("high_score"), hiscore=0;
+const HIGH_SCORE = ''
+var hs = JSON.parse(localStorage.getItem(HIGH_SCORE)) || [];
 
 var score = document.getElementById("score"),count=0;
 var time1;
@@ -25,6 +28,15 @@ var startSong;
 var fadeInt;
 
 // SEPARATE FUNCTIONS
+
+function checkScore(score) {
+  if (score > hs) {
+    hs = score; 
+    localStorage.setItem(HIGH_SCORE, JSON.stringify(hs))
+    go_msg.innerHTML = "new high score! so much bbt. very fat."
+  }
+}
+
 function jump() {
   if (pg.classList != "jump") {
     pg.classList.add("jump");
@@ -180,6 +192,7 @@ function startGame(mode) {
     play.style.display = "block"
     count=0;
     score.innerHTML = count;
+    high_score.innerHTML = hs;
     pg.classList.remove("jump","jump2")
     bbt.classList.remove("run_bbt");
     bbt2.classList.remove("run_bbt2");
@@ -189,14 +202,17 @@ function startGame(mode) {
     ice.classList.remove("run_platform");
     go_msg.style.display = "none"
     go_btns.style.display = "none"
+    high_score.style.visibility = "visible"
     play.classList.remove("freeze")
     // clearInterval(fadeInt);
     // clearTimeout(startSong);
     hb_song.classList.remove("on");
+    go_msg.innerHTML = "lmao you died"
 
 
     if (mode == "special") {
       play.classList.add("special");
+      high_score.style.visibility = "hidden"
       instructions()
     } else if (mode == "endless") {
       play.classList.add("endless");
@@ -257,6 +273,7 @@ function gameOver() {
       document.getElementById("a_dead").play();
       document.getElementById("bgm").pause();
     }
+    checkScore(count);
     play.classList.add("freeze")
     clearTimeout(time1)
     clearTimeout(time2)
@@ -283,24 +300,26 @@ let gotPoint = setInterval(function () {
     window.getComputedStyle(bbt2).getPropertyValue("left")
   );
 
-  if (bbtLeft < 40  && bbtLeft > 0 && pgHead >= 90 && !bbt.classList.contains("point")) {
-    gotBbt();
-
-    if (count == 28 && play.classList.contains("special")) {
-      return;
-    } else {
-      count+=1;
-      score.innerHTML = count;
+  if (!play.classList.contains("freeze")) {
+    if (bbtLeft < 40  && bbtLeft > 0 && pgHead >= 90 && !bbt.classList.contains("point")) {
+      gotBbt();
+      
+      if (count == 28 && play.classList.contains("special")) {
+        return;
+      } else {
+        count+=1;
+        score.innerHTML = count;
+      }
     }
-  }
-
-  if (bbtLeft2 < 40 && bbtLeft2 > 0 && pgHead <= 50 && !bbt2.classList.contains("point")) {
-    gotBbt2();
-    if (count == 28 && play.classList.contains("special")) {
-      return;
-    } else {
-    count+=1;
-    score.innerHTML = count;
+    
+    if (bbtLeft2 < 40 && bbtLeft2 > 0 && pgHead <= 50 && !bbt2.classList.contains("point")) {
+      gotBbt2();
+      if (count == 28 && play.classList.contains("special")) {
+        return;
+      } else {
+        count+=1;
+        score.innerHTML = count;
+      }
     }
   }
 }, 20);
@@ -459,7 +478,6 @@ function toggleMusic(option) {
     bgm.classList.replace("off","on");
     document.getElementById('music_off').style.display = "flex"
     document.getElementById('music_on').style.display = "none"
-    console.log("music on")
 
   }
   if (option === 'off') {
@@ -467,7 +485,6 @@ function toggleMusic(option) {
     bgm.classList.replace("on","off");
     document.getElementById('music_off').style.display = "none"
     document.getElementById('music_on').style.display = "flex"
-    console.log("music off")
   }
 }
 
@@ -494,6 +511,11 @@ document.addEventListener("keydown", function (e) {
     bgm.pause();
     hb_song.pause();
 
+  }
+
+  if (e.key === "0") {
+    localStorage.clear();
+    console.log("hello")
   }
 });
 
