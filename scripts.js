@@ -164,7 +164,7 @@ function runBee2() {
 
   if (!bee2.classList.contains("run_bee2") && !play.classList.contains("freeze")) {
     if (count < 20) {
-      var secs = (Math.random()*1)+2.5
+      var secs = (Math.random()*0.5)+2.5
     }
     if (count >= 20 && count < 50) {
       var secs = (Math.random()*1)+2
@@ -206,13 +206,11 @@ function startGame(mode) {
     go_btns.style.display = "none"
     high_score.style.visibility = "visible"
     play.classList.remove("freeze")
-    // clearInterval(fadeInt);
-    // clearTimeout(startSong);
     hb_song.classList.remove("on");
     go_msg.innerHTML = "lmao you died"
 
 
-    if (mode == "special") {
+    if (mode == "special" || play.classList.contains("special")) {
       play.classList.add("special");
       high_score.style.visibility = "hidden"
       instructions()
@@ -335,7 +333,7 @@ let isElevated = setInterval(function () {
   window.getComputedStyle(ice).getPropertyValue("right")
 );
 
-  if (pgFeet > -35 && pgFeet < -32 && iceLeft >= -50 && iceLeft < 115) {
+  if (pgFeet > -38 && pgFeet < -32 && iceLeft >= -50 && iceLeft < 115) {
     pg.classList.add("upper");
   }
   if (pgFeet === -32 && (iceLeft > 130 || iceLeft < -500)) {
@@ -347,7 +345,7 @@ let isElevated = setInterval(function () {
       }, 200)
     }
   }
-}, 5)
+}, 1)
 
 // RNG TO RUN PLATFORM OR BBT
 let runItems = setInterval(function () {
@@ -372,10 +370,10 @@ let runItems = setInterval(function () {
         runBbt();
       }
     }
-    if (count >= 5 && rng2 % 3 === 0) {
+    if (count >= 5 && rng2 % 4 === 0) {
       runBee();
     }
-    if (count >= 10 && rng2 % 5 === 0) {
+    if (count >= 15 && rng2 % 13 === 0) {
       runBee2();
     }
   }
@@ -426,16 +424,24 @@ var endlessBtn = document.getElementById("endless");
 var btn1 = document.getElementById("go_btn");
 var btn2 = document.getElementById("go_btn2");
 
-specBtn.addEventListener('mouseover', function() {
+specBtn.addEventListener('mouseenter', function() {
   document.getElementById("a_hover").play();
+  document.getElementById("desc1").style.display = "flex"
 })
-endlessBtn.addEventListener('mouseover', function() {
+specBtn.addEventListener('mouseleave', function() {
+  document.getElementById("desc1").style.display = "none"
+})
+endlessBtn.addEventListener('mouseenter', function() {
   document.getElementById("a_hover").play();
+  document.getElementById("desc2").style.display = "flex"
 })
-btn1.addEventListener('mouseover', function() {
+endlessBtn.addEventListener('mouseleave', function() {
+  document.getElementById("desc2").style.display = "none"
+})
+btn1.addEventListener('mouseenter', function() {
   document.getElementById("a_hover").play();
 });
-btn2.addEventListener('mouseover', function() {
+btn2.addEventListener('mouseenter', function() {
   document.getElementById("a_hover").play();
 });
 

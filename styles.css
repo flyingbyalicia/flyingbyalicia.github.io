@@ -1,8 +1,8 @@
 body {
   background-color: #1d1e1e
 }
-h1,h3 {
-  margin-top: 50px;
+h1,h3,h5 {
+  margin-top: 45px;
   color: lightgrey;
   font-family: Comic Sans MS, Comic Sans, cursive;
   text-align: center;
@@ -31,6 +31,14 @@ h1,h3 {
 #inst {
   margin-top: -335px;
   opacity: 0.7;
+}
+
+#desc1, #desc2 {
+  font-size: 13px;
+  opacity: 0.8;
+  display: block;
+  margin: auto;
+  margin-top: 1em;
 }
 
 #music_on, #music_off {
