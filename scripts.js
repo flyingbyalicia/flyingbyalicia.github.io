@@ -33,7 +33,9 @@ function checkScore(score) {
   if (score > hs) {
     hs = score; 
     localStorage.setItem(HIGH_SCORE, JSON.stringify(hs))
-    go_msg.innerHTML = "new high score! so much bbt. very fat."
+    if (play.classList.contains("endless")) {
+      go_msg.innerHTML = "new high score! so much bbt. very fat."
+    }
   }
 }
 
